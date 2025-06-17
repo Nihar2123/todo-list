@@ -1,3 +1,19 @@
 body{
     background-color: rebeccapurple;
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#mainTitle{
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    width: 100%;
+    height: 90vh;
+}
+
+.projectWindow{
+    background-color: brown;
+    flex: 1 1 auto;
 }
