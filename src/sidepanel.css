@@ -1,0 +1,71 @@
+.sidePanel{
+    background-color: cadetblue;
+    width: 17%;
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.addProject{
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: lighter;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}
+
+.addProject button{
+    font-weight: 900;
+    font-size: 1em;
+    padding: 0 10px;
+    border: 3px solid orchid;
+    border-radius: 10px;
+    background-color: #e591e2;
+}
+
+.projectInput{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.projectInput>input,textarea{
+    width: 90%;
+    font-style: italic;
+    font-weight: lighter;
+    border: 3px solid #459093;
+    appearance: none;
+    background-color: #f2f2f2;
+    border-radius: 3px;
+    resize: none;
+}
+
+.projectInput>input:focus,textarea:focus{
+    outline: 0.1em solid #207073;
+}
+.projectInput>input:focus::placeholder,textarea:focus::placeholder{
+    color: transparent;
+}
+
+.projectInput > button{
+    background-color: #28e328;
+    padding: 5px 10px;
+    border: 5px solid #2b8937;
+    border-radius: 5px;
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1.1em;
+}
+
+
+
+.myProjects{
+    padding: 0;
+}
+
+.projectSidebarElement{
+    padding: 10px;
+    background-color: cadetblue;
+    font-size: 1.2em;
+}
