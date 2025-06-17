@@ -14,11 +14,57 @@ class todoItem{
   addCheckList(title){
       this.checklist.push(createCheckListItem(title));
   }
+
+  //-------------------- display Todo
+
+  displayTodoDetails(){
+      const currTodo = document.createElement("div");
+      currTodo.appendChild(this.displayTitleAndPriority());
+      return currTodo;
+
+  }
+
+  displayDescription(){
+
+  }
+
+  displayTitleAndPriority(){
+      const titleContainerDiv = document.createElement("div");
+      titleContainerDiv.classList.add('title-container');
+
+      titleContainerDiv.appendChild(this.displayTitle());
+      titleContainerDiv.appendChild(this.displayPriority());
+      return titleContainerDiv;
+  }
+
+  displayTitle(){
+      const titleSpan = document.createElement("span");
+      titleSpan.innerHTML = this.title;
+      return titleSpan;
+  }
+
+  displayPriority(){
+      const prioritySpan = document.createElement("span");
+      prioritySpan.innerHTML = this.priority;
+      prioritySpan.style.color = this.assignPriorityColor();
+      return prioritySpan;
+  }
+
+  assignPriorityColor(){
+      switch(this.priority){
+          case 'high': return 'red';
+          case 'medium': return 'yellow';
+          case 'low': return 'green';
+      }
+  }
 }
+
+//-------------------------------------------
 
 export function createTodoItem(title, description, dueDate = null, priority = 'low'){
     priority = checkPriority(priority);
     dueDate = checkDate(dueDate);
+    description = checkDescription(description);
     return new todoItem(title, description, dueDate, priority);
 }
 
@@ -32,4 +78,10 @@ function checkPriority(priority){
     if(priority < 4) return 'low';
     else if (priority < 8) return 'medium';
     else if(priority >= 8) return 'high';
+}
+
+function checkDescription(description){
+    if(description === '')
+        return '(〜^∇^)〜';
+    else return description;
 }

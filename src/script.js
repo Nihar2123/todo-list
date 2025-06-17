@@ -1,5 +1,9 @@
 import "./style.css"
 import "./sidepanel.css"
+import "./projectWindow.css"
+import "./todoDisplay.css"
+import "./notes.css"
+import "./todoDialog.css"
 
 //import {createTodoItem} from "./todos"
 import {createProject} from "./projects";
