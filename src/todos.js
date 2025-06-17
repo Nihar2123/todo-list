@@ -19,22 +19,52 @@ class todoItem{
 
   displayTodoDetails(){
       const currTodo = document.createElement("div");
-      currTodo.appendChild(this.displayTitleAndPriority());
+      currTodo.classList.add('todoElement');
+      currTodo.appendChild(this.displayTitleAndPriorityAndCheckBox());
+      currTodo.appendChild(this.displayDescriptionAndDate());
       return currTodo;
 
   }
 
-  displayDescription(){
+  displayDescriptionAndDate(){
+      const descriptionContainerDiv = document.createElement("div");
+      descriptionContainerDiv.classList.add('description-container');
 
+      descriptionContainerDiv.appendChild(this.displayDescription());
+      descriptionContainerDiv.appendChild(this.displayDueDate());
+      return descriptionContainerDiv;
   }
 
-  displayTitleAndPriority(){
+  displayDescription(){
+      const descriptionDiv = document.createElement("div");
+      descriptionDiv.classList.add('description');
+      descriptionDiv.innerText = `${this.description}`;
+      return descriptionDiv;
+  }
+
+  displayDueDate(){
+      const dateDiv = document.createElement("div");
+      dateDiv.classList.add('date');
+      let text = (this.dueDate === null)? 'no deadline': this.dueDate.toString();
+      dateDiv.innerText = `${text}`;
+      return dateDiv;
+  }
+
+  displayTitleAndPriorityAndCheckBox(){
       const titleContainerDiv = document.createElement("div");
       titleContainerDiv.classList.add('title-container');
 
+      titleContainerDiv.appendChild(this.displayCheckBox());
       titleContainerDiv.appendChild(this.displayTitle());
       titleContainerDiv.appendChild(this.displayPriority());
       return titleContainerDiv;
+  }
+
+  displayCheckBox(){
+      const checkboxDiv = document.createElement('input');
+      checkboxDiv.classList.add('todoCheckbox');
+      checkboxDiv.setAttribute('type', 'checkbox');
+      return checkboxDiv;
   }
 
   displayTitle(){
@@ -45,6 +75,7 @@ class todoItem{
 
   displayPriority(){
       const prioritySpan = document.createElement("span");
+      prioritySpan.classList.add('prioritySpan');
       prioritySpan.innerHTML = this.priority;
       prioritySpan.style.color = this.assignPriorityColor();
       return prioritySpan;

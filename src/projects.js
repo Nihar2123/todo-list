@@ -21,7 +21,7 @@ class project{
             if(title === '')
                 this.resetDialog();
 
-            const description = document.getElementById("description").value = "";
+            const description = document.getElementById("description").value;
             let dueDate = document.getElementById("dueDate").value;
             if(dueDate === '') dueDate = null;
 
