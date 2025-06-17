@@ -1,0 +1,10 @@
+.myTodos{
+    padding: 1em;
+    background-color: white;
+    flex: 2 1.5 auto;
+}
+
+.title-container {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+}

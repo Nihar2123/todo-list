@@ -1,0 +1,52 @@
+
+#dialogForm{
+    border: 3px solid #383882;
+    border-radius: 10px;
+    background-color: #3f3f86;
+
+    color: #d7d5d5;
+}
+
+#dialogForm form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+
+    padding: 30px 15px;
+    border: 0.05em solid black;
+
+    background-color: #8383c7;
+    color: black;
+}
+
+#dialogForm form input{
+    background-color: #ddd9d9;
+    border: 3px solid #173e94;
+    outline: 1px solid #7171b9;
+}
+
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    margin-top: 15px;
+}
+
+.buttonContainer button{
+    font-size: 0.9em;
+    padding: 0.2em 0.4em;
+    border-radius: 5px;
+
+    background-color: #40ff2f;
+}
+
+.buttonContainer button:first-child{
+    background-color: red   ;
+}
+
+.buttonContainer button:hover{
+    background-color: white;
+}

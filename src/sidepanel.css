@@ -1,6 +1,6 @@
 .sidePanel{
     background-color: cadetblue;
-    width: 17%;
+    width: 350px;
     flex: 0 0 auto;
     text-align: center;
 }
@@ -68,4 +68,10 @@
     padding: 10px;
     background-color: cadetblue;
     font-size: 1.2em;
+    display: grid;
+    grid-template-columns: 1fr 50px;
+}
+
+.projectSidebarElement.active{
+    background-color: #538a8c;
 }

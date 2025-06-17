@@ -1,0 +1,30 @@
+.projectWindowHeader{
+    font-size: 2em;
+    padding: 0.5em;
+    background-color: #247fab;
+    display: flex;
+    gap: 0.9em;
+}
+
+#addTodoButton{
+    margin-left: auto;
+    font-size: 0.6em;
+    padding: 0 0.5em;
+    border: 3px solid #802f2f;
+    border-radius: 10px;
+    background-color: #0b618a;
+    color: #d3f2ec;
+}
+
+.projectDescription{
+    font-size: 1.3em;
+    padding: 0.5em;
+    background-color: #b35e8d;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.todo_notes_container{
+    display: flex;
+
+}
