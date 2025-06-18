@@ -1,5 +1,18 @@
-.notes{
+.info{
     //width: 400px;
-    background-color: orchid;
-    flex: 1 1 auto;
+    background-color: #6c1010;
+    flex: 1 1 0;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+.info img{
+    width : 50%;
+}
+
+.info>div{
+
+    text-wrap: wrap;
 }
