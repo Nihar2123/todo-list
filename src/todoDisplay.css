@@ -1,7 +1,7 @@
 .myTodos{
     padding: 0.5em;
     background-color: #892424;
-    flex: 2 1.5 auto;
+    flex: 2 1.5 0;
 
     display: flex;
     flex-direction: column;
@@ -16,6 +16,11 @@
 
 .todoElement div{
     padding: 0;
+}
+
+.completed{
+    background-color: #b2abab;
+    text-decoration: line-through;
 }
 
 .title-container {
@@ -44,7 +49,7 @@
     font-style: normal;
 }
 
-.title-container > input {
+.title-container > input, .checklist > input {
     /* Add if not using autoprefixer */
     -webkit-appearance: none;
     appearance: none;
@@ -65,7 +70,12 @@
 
 }
 
-input[type="checkbox"]::before {
+.checklist > input{
+    width: 0.9em;
+    height: 0.9em;
+}
+
+input[type="checkbox"]::before, .checklist > input::before {
     content: "";
     width: 0.65em;
     height: 0.65em;
@@ -74,10 +84,68 @@ input[type="checkbox"]::before {
     box-shadow: inset 1em 1em rebeccapurple;
 }
 
-input[type="checkbox"]:checked::before {
+input[type="checkbox"]:checked::before, .checklist > input:checked::before {
     transform: scale(1);
     background-color: CanvasText;
     transform-origin: bottom left;
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
+
+.statusBar{
+    font-size: 1.8em;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75em;
+    align-items: center;
+}
+
+.statusBar > span{
+    color: #3aac33;
+    font-weight: bold;
+}
+
+.checklist{
+    display: flex;
+    gap: 0.75em;
+    align-items: center;
+}
+
+.allCheckListItems .completed{
+    background-color: #aea185;
+}
+
+.allCheckListItems{
+    background-color: #e5d0a6;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+}
+
+.todoElement.completed .allCheckListItems{
+    background-color: #b2abab;
+}
+
+.todoElement.completed .allCheckListItems .completed{
+    background-color: #b2abab;
+}
+
+.todoElement.completed .statusBarInput{
+    background-color: #b2abab;
+}
+
+.todoElement .allCheckListItems{
+    padding: 0.5em;
+}
+
+.statusBarInput{
+    margin-right: auto;
+    margin-left: 1em;
+    width: 35%;
+    height: 20px;
+
+    background-color: #efeabc;
+    //border: 3px solid #173e94;
+    outline: 1px solid #d09570;
+}
+
 
