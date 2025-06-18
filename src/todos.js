@@ -1,5 +1,6 @@
 import {format} from "date-fns"
 import {createCheckListItem} from "./checklist"
+import binImage from "./icons/trash.svg"
 
 class todoItem{
   constructor(title, description, dueDate, priority){
@@ -9,10 +10,8 @@ class todoItem{
       this.priority = priority;
       this.status = 'Not Completed';
       this.checklist = [];
-  }
 
-  addCheckList(title){
-      this.checklist.push(createCheckListItem(title));
+      this.addCheckList('AAAAAAAAAAA');
   }
 
   //-------------------- display Todo
@@ -20,10 +19,46 @@ class todoItem{
   displayTodoDetails(){
       const currTodo = document.createElement("div");
       currTodo.classList.add('todoElement');
-      currTodo.appendChild(this.displayTitleAndPriorityAndCheckBox());
-      currTodo.appendChild(this.displayDescriptionAndDate());
-      return currTodo;
+      const checklistDropdownDiv = document.createElement("div");
+      checklistDropdownDiv.appendChild(this.displayTitleAndPriorityAndCheckBox(currTodo));
+      checklistDropdownDiv.appendChild(this.displayDescriptionAndDate());
+      currTodo.appendChild(checklistDropdownDiv);
 
+      const allCheckListItemsDiv = document.createElement("div");
+      allCheckListItemsDiv.classList.add('allCheckListItems');
+      currTodo.appendChild(this.displayTodoStatusBar(allCheckListItemsDiv));
+      currTodo.appendChild(allCheckListItemsDiv);
+      this.displayChecklist(checklistDropdownDiv, allCheckListItemsDiv);
+      return currTodo;
+  }
+
+  displayTodoStatusBar(allCheckListItemsDiv){
+      const statusBar = document.createElement("div");
+      statusBar.classList.add('statusBar');
+      const statusBarInput = document.createElement("input");
+      statusBarInput.type = "text";
+      statusBarInput.classList.add('statusBarInput');
+      const plusSymbol = document.createElement("span");
+      plusSymbol.innerText = "+";
+      this.checklistInput(plusSymbol, allCheckListItemsDiv);
+      const image = document.createElement("img");
+      image.src = binImage;
+      statusBar.appendChild(statusBarInput);
+      statusBar.appendChild(plusSymbol);
+      statusBar.appendChild(image);
+      return statusBar;
+  }
+
+  checklistInput(submit, allCheckListItemsDiv){
+      submit.addEventListener("click", ()=>{
+          const statusBarInput = document.querySelector(".statusBarInput");
+          const text = statusBarInput.value;
+          if(text !== ''){
+              this.addCheckList(text);
+              statusBarInput.value = '';
+              this.displayAllCheckListItems(allCheckListItemsDiv);
+          }
+      })
   }
 
   displayDescriptionAndDate(){
@@ -50,21 +85,39 @@ class todoItem{
       return dateDiv;
   }
 
-  displayTitleAndPriorityAndCheckBox(){
+  displayTitleAndPriorityAndCheckBox(currTodo){
       const titleContainerDiv = document.createElement("div");
       titleContainerDiv.classList.add('title-container');
 
-      titleContainerDiv.appendChild(this.displayCheckBox());
+      titleContainerDiv.appendChild(this.displayCheckBox(currTodo, this));
       titleContainerDiv.appendChild(this.displayTitle());
       titleContainerDiv.appendChild(this.displayPriority());
       return titleContainerDiv;
   }
 
-  displayCheckBox(){
+  displayCheckBox(currTodo, ref){
       const checkboxDiv = document.createElement('input');
       checkboxDiv.classList.add('todoCheckbox');
       checkboxDiv.setAttribute('type', 'checkbox');
+      if(ref.status === 'Completed'){
+          checkboxDiv.setAttribute('checked', 'checked');
+          currTodo.classList.add('completed');
+      }
+      this.checkBoxMark(currTodo, checkboxDiv, ref);
       return checkboxDiv;
+  }
+
+  checkBoxMark(currTodo, checkboxDiv, ref){
+      checkboxDiv.addEventListener('change', function(e) {
+          if(ref.status === 'Not Completed'){
+              ref.status = 'Completed';
+              currTodo.classList.add('completed');
+          }
+          else{
+              ref.status = 'Not Completed';
+              currTodo.classList.remove('completed');
+          }
+      })
   }
 
   displayTitle(){
@@ -88,9 +141,61 @@ class todoItem{
           case 'low': return 'green';
       }
   }
+
+    //-----------------------checklists
+
+    displayChecklist(currTodo, allCheckListItemsDiv){
+      let toggle = true;
+        currTodo.addEventListener("click", ()=>{
+            if(toggle){
+                toggle = false;
+                this.displayAllCheckListItems(allCheckListItemsDiv);
+            }
+            else{
+                toggle = true;
+                allCheckListItemsDiv.innerHTML = '';
+            }
+        })
+    }
+
+    displayAllCheckListItems(allCheckListItemsDiv){
+        allCheckListItemsDiv.innerHTML = '';
+      this.checklist.forEach((item)=> {
+          allCheckListItemsDiv.appendChild(this.displayCheckListItem(item));
+      })
+        return allCheckListItemsDiv;
+    }
+
+    displayCheckListItem(item){
+      const checklistDiv = document.createElement("div");
+      checklistDiv.classList.add('checklist');
+
+      checklistDiv.appendChild(this.displayCheckBox(checklistDiv, item));
+      const checkBox  = checklistDiv.querySelector('input');
+      let currId = `checklist${generateUniqueId()}`;
+      checkBox.id = currId;
+
+      const checklistText = document.createElement("label");
+      checklistText.setAttribute("for", currId);
+      checklistText.innerText = item.title;
+      checklistDiv.appendChild(checklistText);
+      return checklistDiv;
+    }
+
+    addCheckList(title){
+        this.checklist.push(createCheckListItem(title));
+    }
 }
 
+
 //-------------------------------------------
+
+let uniqueIdCounter = 0;
+
+function generateUniqueId() {
+    uniqueIdCounter++;
+    return `element-${uniqueIdCounter}`; // Generate a unique ID string
+}
 
 export function createTodoItem(title, description, dueDate = null, priority = 'low'){
     priority = checkPriority(priority);
