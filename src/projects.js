@@ -6,6 +6,7 @@ class project{
         this.title = title;
         this.description = description;
         this.htmlProjectElement = null;
+        this.active = false;
 
         this.manageDialog();
     }
@@ -18,8 +19,10 @@ class project{
 
     saveDialogInfo(){
             const title = document.getElementById("title").value;
-            if(title === '')
+            if(title === '') {
                 this.resetDialog();
+                return;
+            }
 
             const description = document.getElementById("description").value;
             let dueDate = document.getElementById("dueDate").value;
@@ -31,6 +34,8 @@ class project{
             const dialog = document.querySelector('#dialogForm');
             dialog.close();
             this.resetDialog();
+
+            this.displayProjectDetails();
     }
 
     resetDialog(){
@@ -59,8 +64,15 @@ class project{
     }
 
     //-------------------- Project Window
+    removeDisplayProjectDetails(){
+        this.active = false;
+        this.displayProjectHeaderName();
+        this.displayProjectDescription();
+        this.displayAllTodos();
+    }
 
     displayProjectDetails(){
+        this.active = true;
         this.displayProjectHeaderName();
         this.displayProjectDescription();
         this.displayAllTodos();
@@ -68,26 +80,51 @@ class project{
 
     displayProjectHeaderName(){
         const headerDiv = document.querySelector('#projectName');
-        headerDiv.innerHTML = this.title;
+        headerDiv.innerHTML = (this.active)? this.title: '';
     }
 
     displayProjectDescription(){
         const descriptionDiv = document.querySelector('.projectDescription');
         let description = (this.description === '')? '.;-;-' : this.description;
-        descriptionDiv.innerHTML = `Description: \xa0\xa0${description}`;
+        descriptionDiv.innerHTML = this.active? `Description: \xa0\xa0${description}` : '';
     }
 
     //-------------------- Todos
     displayAllTodos(){
         const todoDisplay = document.querySelector('.myTodos');
         todoDisplay.innerHTML = '';
-        this.todos.forEach(item => {
-            this.displayTodo(item, todoDisplay);
-        })
+        if(this.active) {
+            this.todos.forEach(item => {
+                this.displayTodo(item, todoDisplay);
+            })
+        }
     }
 
     displayTodo(todo, container){
-        container.appendChild(todo.displayTodoDetails());
+        const todoContainer = todo.displayTodoDetails();
+        if(todo.status === 'Completed')
+            todoContainer.classList.add('completed');
+        else
+            todoContainer.classList.remove('completed');
+        this.deleteTodo(todo, todoContainer, container)
+        container.appendChild(todoContainer);
+    }
+
+    deleteTodo(todo, todoContainer, container){
+        const image = todoContainer.querySelector('img');
+        image.addEventListener('click', ()=>{
+            container.removeChild(todoContainer);
+            this.deleteTodoData(todo);
+            this.updateDisplayProject();
+        })
+    }
+
+    deleteTodoData(todo){
+        this.todos.forEach((item, index) => {
+            if(item === todo){
+                this.todos.splice(index, 1);
+            }
+        })
     }
 
 
