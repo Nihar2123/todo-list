@@ -10,8 +10,6 @@ class todoItem{
       this.priority = priority;
       this.status = 'Not Completed';
       this.checklist = [];
-
-      this.addCheckList('AAAAAAAAAAA');
   }
 
   //-------------------- display Todo
@@ -40,7 +38,7 @@ class todoItem{
       statusBarInput.classList.add('statusBarInput');
       const plusSymbol = document.createElement("span");
       plusSymbol.innerText = "+";
-      this.checklistInput(plusSymbol, allCheckListItemsDiv);
+      this.checklistInput(plusSymbol,statusBar, allCheckListItemsDiv);
       const image = document.createElement("img");
       image.src = binImage;
       statusBar.appendChild(statusBarInput);
@@ -49,10 +47,10 @@ class todoItem{
       return statusBar;
   }
 
-  checklistInput(submit, allCheckListItemsDiv){
+  checklistInput(submit,statusBar, allCheckListItemsDiv){
       submit.addEventListener("click", ()=>{
-          const statusBarInput = document.querySelector(".statusBarInput");
-          const text = statusBarInput.value;
+          const statusBarInput = statusBar.querySelector(".statusBarInput");
+          const text = statusBarInput.value;console.log(statusBarInput);
           if(text !== ''){
               this.addCheckList(text);
               statusBarInput.value = '';
