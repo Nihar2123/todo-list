@@ -65,6 +65,7 @@ class projectList{
         const newProject = document.createElement('div');
         newProject.classList.add('projectSidebarElement');
         const newProjectText = document.createElement('a');
+        newProjectText.classList.add('sidebarProjectName');
         newProjectText.textContent = `${currProject.title} (${currProject.todos.length})`;
         newProject.appendChild(newProjectText);
         const image = document.createElement("img");
@@ -74,8 +75,9 @@ class projectList{
             this.openProjectWindow(currProject);
         })
         image.addEventListener('click', ()=>{
-            this.removeProject(currProject, myProjects);console.log(this.list);
+            this.removeProject(currProject);//console.log(this.list);
             myProjects.removeChild(newProject);
+            this.closeProjectWindow(currProject);
         })
 
         newProject.appendChild(image);
@@ -83,18 +85,24 @@ class projectList{
         return newProject;
     }
 
+    closeProjectWindow(currProject){
+        if(this.activeProject === currProject)
+            this.activeProject.removeDisplayProjectDetails();
+        console.log(this.activeProject);
+    }
+
     openProjectWindow(currProject){
         if(this.prevActiveProject !== null){
             this.prevActiveProject.classList.remove('active');
         }
         currProject.htmlProjectElement.classList.add('active');
-        this.activeProject = currProject;
+        this.activeProject = currProject;//console.log(this.activeProject);
         this.prevActiveProject = currProject.htmlProjectElement;
 
         currProject.displayProjectDetails();
     }
 
-    removeProject(currProject, myProjects){
+    removeProject(currProject){
         this.list.forEach((item, index) =>{
             if(item === currProject){
                 this.list.splice(index, 1);
